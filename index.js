@@ -82,12 +82,12 @@ async function run() {
   })
 
 
-//   app.delete('/tourist/:id', async(req,res) =>{
-//     const id= req.params.id;
-//     const query ={_id: new ObjectId(id)}
-//     const result = await touristCollection.deleteOne(query);
-//     res.send(result);
-// });
+  app.delete('/tourist/:id', async(req,res) =>{
+    const id= req.params.id;
+    const query ={_id: new ObjectId(id)}
+    const result = await touristCollection.deleteOne(query);
+    res.send(result);
+});
 
 
 
