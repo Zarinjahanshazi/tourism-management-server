@@ -58,6 +58,40 @@ async function run() {
         res.send(result);
     })
 
+    app.put('/tourist/:id',async(req,res) =>{
+      const id = req.params.id;
+      const filter ={_id: new ObjectId(id)}
+      const options ={upsert:true};
+      const updatedTourist = req.body;
+      const tourist ={
+          $set:{
+            touristsSpotName: updatedTourist.touristsSpotName,
+            countryName: updatedTourist.countryName,
+            location: updatedTourist.location,
+            shortDescription: updatedTourist.shortDescription,
+            averageCost: updatedTourist.averageCost,
+            seasonality: updatedTourist.seasonality,
+            travelTime: updatedTourist.travelTime,
+            totalVisitorsPerYear: updatedTourist.totalVisitorsPerYear,
+            photo: updatedTourist.photo
+          }
+      }
+
+      const result = await touristCollection.updateOne(filter,tourist,options)
+      res.send(result);
+  })
+
+
+//   app.delete('/tourist/:id', async(req,res) =>{
+//     const id= req.params.id;
+//     const query ={_id: new ObjectId(id)}
+//     const result = await touristCollection.deleteOne(query);
+//     res.send(result);
+// });
+
+
+
+
     app.get("/countries",async(req,res) =>{
       const result = await countriesCollection.find().toArray();
       res.send(result);
@@ -77,6 +111,9 @@ async function run() {
     const result = await cursor.toArray();
     res.send(result);
 });
+
+
+
 
 
 
