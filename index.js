@@ -64,6 +64,32 @@ async function run() {
     });
 
 
+    app.get('/country',async(req,res) =>{
+      const cursor = touristCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+  });
+
+  app.get('/country/:name',async(req,res) =>{
+    const name= req.params.name;
+    const query = {countryName:name}
+    const cursor = touristCollection.find(query);
+    const result = await cursor.toArray();
+    res.send(result);
+});
+
+app.get('/country/:id',async(req,res) =>{
+  const id = req.params.id;
+  const query ={_id: new ObjectId(id)}
+  const result = await countriesCollection.findOne(query);
+  res.send(result);
+
+});
+
+
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
