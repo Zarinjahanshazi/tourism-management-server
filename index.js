@@ -32,6 +32,7 @@ async function run() {
     await client.connect();
 
     const touristCollection = client.db('touristDB').collection('tourist');
+    const countriesCollection = client.db('touristDB').collection('countries');
 
     app.get('/tourist',async(req,res) =>{
         const cursor = touristCollection.find();
@@ -56,6 +57,11 @@ async function run() {
         const result = await touristCollection.insertOne(addTourists);
         res.send(result);
     })
+
+    app.get("/countries",async(req,res) =>{
+      const result = await countriesCollection.find().toArray();
+      res.send(result);
+    });
 
 
     // Send a ping to confirm a successful connection
